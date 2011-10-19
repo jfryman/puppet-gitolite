@@ -1,0 +1,36 @@
+# ************************************
+# Gitweb template in module git
+# Managed by Puppet
+# ************************************
+
+<VirtualHost *:80>
+    ServerName <%= vhost %>
+    DocumentRoot "/var/www/git"
+    DirectoryIndex gitweb.cgi
+    SetEnv  GITWEB_CONFIG   /etc/gitweb.conf
+
+    <Directory "/var/www/git">
+        Options FollowSymlinks ExecCGI
+        Allow from all
+        AllowOverride all
+        Order allow,deny
+
+        <Files gitweb.cgi>
+            SetHandler cgi-script
+        </Files>
+
+        RewriteEngine on
+        RewriteCond %{REQUEST_FILENAME} !-f
+        RewriteCond %{REQUEST_FILENAME} !-d
+        RewriteRule ^.* /gitweb.cgi/$0 [L,PT]    
+    </Directory>
+
+    <Directory "<%= scope.lookupvar('git::params::gt_repo_dir') %>">
+      Allow from all
+    </Directory>
+
+    LogLevel warn
+    ServerSignature Off
+    ErrorLog <%= scope.lookupvar('git::params::gt_httpd_var_dir') %>/<%= vhost %>_error.log
+    CustomLog <%= scope.lookupvar('git::params::gt_httpd_var_dir') %>/<%= vhost %>_access.log combined
+</VirtualHost>
