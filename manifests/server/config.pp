@@ -40,11 +40,11 @@ class git::server::config(
     content => template('git/gitweb.conf.erb'),
   }
   ## add pretty style sheets
-  file { "${git::params::gt_gitweb_root}/static/gitweb.css":
+  file { "${git::params::gt_gitweb_root}${git::params::gt_gitweb_spath}gitweb.css":
     ensure => file,
     source => 'puppet:///modules/git/gitweb.css',
   } 
-  file { "${git::params::gt_gitweb_root}/static/gitweb.js":
+  file { "${git::params::gt_gitweb_root}${git::params::gt_gitweb_spath}gitweb.js":
     ensure => file,
     source => 'puppet:///modules/git/gitweb.js',
   }
