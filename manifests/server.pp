@@ -1,7 +1,8 @@
 class git::server(
   $site_name = '',
   $ssh_key,
-  $vhost     = ''
+  $vhost     = '',
+  $apache_conf = ''
 ) {
   include stdlib
   
@@ -17,6 +18,7 @@ class git::server(
     site_name => $REAL_site_name,
     ssh_key   => $ssh_key,
     vhost     => $REAL_vhost,
+    apache_conf => $apache_conf,
   }
   -> anchor { 'git::server::end': }
 }

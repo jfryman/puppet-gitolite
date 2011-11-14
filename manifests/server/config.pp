@@ -1,7 +1,8 @@
 class git::server::config(
   $site_name,
   $ssh_key,
-  $vhost
+  $vhost = '',
+  $apache_conf = ''
 ) { 
   File {
     owner => $git::params::gt_uid,
@@ -48,13 +49,20 @@ class git::server::config(
     ensure => file,
     source => 'puppet:///modules/git/gitweb.js',
   }
-  apache::vhost { $vhost:
-    port     => '80',
-    docroot  => $git::params::gt_repo_dir,
-    ssl      => 'false',
-    template => 'git/gitweb-apache-vhost.conf.erb',
-    priority => '99',
-    require  => [ File["/etc/gitweb.conf"], File["${git::params::gt_httpd_conf_dir}/git.conf"] ],
+
+  if $apache_conf == '' {
+    apache::vhost { $vhost:
+      port     => '80',
+      docroot  => $git::params::gt_repo_dir,
+      ssl      => 'false',
+      template => 'git/gitweb-apache-vhost.conf.erb',
+      priority => '99',
+      require  => [ File["/etc/gitweb.conf"], File["${git::params::gt_httpd_conf_dir}/git.conf"] ],
+    }
+  } else {
+    file { $apache_conf:
+      content => template('git/gitweb-apache-vhost.conf.erb'),
+    }
   }
 
   # Gitolite Configuration
