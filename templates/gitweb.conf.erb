@@ -1,8 +1,8 @@
 $GIT = "/usr/bin/git";
 $projectroot = "<%= scope.lookupvar('git::params::gt_repo_dir') %>";
-$stylesheet = "/static/gitweb.css";
-$logo = "/static/git-logo.png";
-$favicon = "/static/git-favicon.png";
+$stylesheet = "<%= scope.lookupvar('git::params::gt_gitweb_spath') %>gitweb.css";
+$logo = "<%= scope.lookupvar('git::params::gt_gitweb_spath') %>git-logo.png";
+$favicon = "<%= scope.lookupvar('git::params::gt_gitweb_spath') %>git-favicon.png";
 @git_base_url_list = ("ssh://git@<%= vhost %>", "http://<%= vhost %>");
 $projects_list_description_width = 50;
 

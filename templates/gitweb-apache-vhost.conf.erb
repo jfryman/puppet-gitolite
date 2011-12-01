@@ -5,24 +5,24 @@
 
 <VirtualHost *:80>
     ServerName <%= vhost %>
-    DocumentRoot "/var/www/git"
-    DirectoryIndex gitweb.cgi
+    DocumentRoot "<%= scope.lookupvar('git::params::gt_gitweb_root') %>"
+    DirectoryIndex <%= scope.lookupvar('git::params::gt_gitweb_binary') %>
     SetEnv  GITWEB_CONFIG   /etc/gitweb.conf
 
-    <Directory "/var/www/git">
+    <Directory "<%= scope.lookupvar('git::params::gt_gitweb_root') %>">
         Options FollowSymlinks ExecCGI
         Allow from all
         AllowOverride all
         Order allow,deny
 
-        <Files gitweb.cgi>
+        <Files <%= scope.lookupvar('git::params::gt_gitweb_binary') %>>
             SetHandler cgi-script
         </Files>
 
         RewriteEngine on
         RewriteCond %{REQUEST_FILENAME} !-f
         RewriteCond %{REQUEST_FILENAME} !-d
-        RewriteRule ^.* /gitweb.cgi/$0 [L,PT]    
+        RewriteRule ^.* /<%= scope.lookupvar('git::params::gt_gitweb_binary') %>/$0 [L,PT]    
     </Directory>
 
     <Directory "<%= scope.lookupvar('git::params::gt_repo_dir') %>">
