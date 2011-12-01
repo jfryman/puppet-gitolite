@@ -15,12 +15,39 @@ _Puppet Labs Standard Library_
 _Apache Module_
 - http://github.com/puppetlabs/puppetlabs-apache
 
-
-*Setup the initial Gitolite Admin Keys and bootstrap*
+*Setup the initial Gitolite Admin keys and bootstrap* 
 <pre>
-  class { 'git::server:
-    site_name => "Frymanet.com Git Repository",
-    ssh_key   => "ssh-rsa AAAA.......",
+   class { 'git':
+    server    => 'true',
+    site_name => 'Frymanet.com Git Repository',
+    ssh_key   => 'ssh-rsa AAAA....',
     vhost     => 'git.frymanet.com',
   }
+</pre>
+
+*Setup the initial Gitolite Admin keys and bootstrap using an external apache module* 
+<pre>
+   class { 'git':
+    server               => 'true',
+    site_name            => 'Frymanet.com Git Repository',
+    ssh_key              => 'ssh-rsa AAAA....',
+    vhost                => 'git.frymanet.com',
+    write_apache_conf_to => '/opt/git/git-apache.conf',
+    apache_notify        => Service['apache2'],
+  }
+</pre>
+
+*Setup the initial Gitolite Admin keys and bootstrap, but don't manage apache*
+<pre> 
+   class { 'git':
+    server               => 'true',
+    manage_apache        => 'false',
+    site_name            => 'Frymanet.com Git Repository',
+    ssh_key              => 'ssh-rsa AAAA....',
+  }
+</pre>
+
+*Only install Git Client Binaries*
+<pre>
+ class { 'git': }
 </pre>
