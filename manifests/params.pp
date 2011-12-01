@@ -17,6 +17,8 @@
 #  $gt_httpd_var_dir: default directory for apache logs
 #  $gt_httpd_uid: default uid to be used for apache management in this module.
 #  $gt_gitweb_root: root directory where the gitweb documents are installed.
+#  $gt_gitweb_spath: directory for static files served by gitweb.
+#  $gt_gitweb_binary: cgi for serving gitweb
 #
 # Actions:
 #   This module does not perform any actions.
