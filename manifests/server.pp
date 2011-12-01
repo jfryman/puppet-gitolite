@@ -1,24 +1,24 @@
 # Class: git::server
 #
-# This module manages git server management 
+# This module manages git server management
 #
 # Parameters:
 #  $server: Whether to install gitolite in addition to git core tools.
-#  $site_name: (default: "fqdn Git Repository") The friendly name displayed on the GitWeb main page. 
+#  $site_name: (default: "fqdn Git Repository") The friendly name displayed on the GitWeb main page.
 #  $manage_apache: flag to determine whether git module also manages Apache configuration
 #  $write_apache_conf_to: (file path). This option is used when you want to contain apache
-#                         configuration within the git class, but do not want to use the 
+#                         configuration within the git class, but do not want to use the
 #                         puppetlabs-apache module to manage apache. This option takes a file path
-#                         and will write the apache template to a specific file on the filesystem. 
+#                         and will write the apache template to a specific file on the filesystem.
 #                         REQUIRES: $apache_notify
-#  $apache_notify: Reference notification to be used if the git module will manage apache, but the 
+#  $apache_notify: Reference notification to be used if the git module will manage apache, but the
 #                  puppetlabs-apache module is not going to be used. This takes a type reference 
 #                  (e.g.: Class['apache::service'] or Service['apache2']) to send a notification
 #                  to the reference to restart an external apache service.
-#  $vhost: the virtual host of the apache instance. 
+#  $vhost: the virtual host of the apache instance.
 #  $ssh_key: the SSH key used to seed the admin account for gitolite.
-#   
-#   
+#
+#
 # Actions:
 #   This module will install Java packages, ensure that it adheres
 #   to LSB alternatives, and configure the base system to use the defined
@@ -56,24 +56,24 @@
 #  }
 #
 class git::server(
-  $site_name = '',
+  $site_name            = '',
   $ssh_key,
-  $vhost     = '',
-  $manage_apache,
-  $apache_notify,
-  $write_apache_conf_to
+  $vhost                = '',
+  $manage_apache        = '',
+  $apache_notify        = '',
+  $write_apache_conf_to = ''
 ) {
   include stdlib
-  
-  if $site_name == '' { $REAL_site_name = $git::params::gt_site_name } 
+
+  if $site_name == '' { $REAL_site_name = $git::params::gt_site_name }
   else { $REAL_site_name = $site_name }
-  
-  if $vhost == '' { $REAL_vhost = $git::params::gt_vhost } 
+
+  if $vhost == '' { $REAL_vhost = $git::params::gt_vhost }
   else { $REAL_vhost = $vhost }
 
   anchor { 'git::server::begin': }
   -> class { 'git::server::package': }
-  -> class { 'git::server::config': 
+  -> class { 'git::server::config':
     site_name            => $REAL_site_name,
     ssh_key              => $ssh_key,
     vhost                => $REAL_vhost,
