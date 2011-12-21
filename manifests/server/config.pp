@@ -72,13 +72,18 @@ class git::server::config(
     content => template('git/gitweb.conf.erb'),
   }
   ## add pretty style sheets
+  file { "${git::params::gt_gitweb_root}${git::params::gt_gitweb_spath}":
+    ensure => directory,
+  }
   file { "${git::params::gt_gitweb_root}${git::params::gt_gitweb_spath}gitweb.css":
     ensure => file,
     source => 'puppet:///modules/git/gitweb.css',
+    require => File["${git::params::gt_gitweb_root}${git::params::gt_gitweb_spath}"],
   } 
   file { "${git::params::gt_gitweb_root}${git::params::gt_gitweb_spath}gitweb.js":
     ensure => file,
     source => 'puppet:///modules/git/gitweb.js',
+    require => File["${git::params::gt_gitweb_root}${git::params::gt_gitweb_spath}"],
   }
   
   # Flag modifier to allow user to choose whether to use 
