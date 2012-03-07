@@ -122,7 +122,7 @@ class git::server::config(
     content => $ssh_key,
   }
   exec { 'install-gitolite':
-    command     => "gl-setup -q ${git::params::gt_repo_base}/gitolite.pub",
+    command     => "gl-setup ${git::params::gt_repo_base}/gitolite.pub",
     creates     => "${git::params::gt_repo_base}/projects.list",
     cwd         => $git::params::gt_repo_base,
     user        => $git::params::gt_uid,
