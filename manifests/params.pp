@@ -1,8 +1,8 @@
 # Class: git::params
 #
 # Description
-#   This class is designed to carry default parameters for 
-#   Class: git.  
+#   This class is designed to carry default parameters for
+#   Class: git.
 #
 # Parameters:
 #  $gt_uid: username under the context where gitolite will run
@@ -24,7 +24,7 @@
 #   This module does not perform any actions.
 #
 # Requires:
-#   This module has no requirements.   
+#   This module has no requirements.
 #
 # Sample Usage:
 #   This method should not be called directly.
@@ -56,6 +56,9 @@ class git::params {
       $gt_gitweb_root    = '/usr/share/gitweb/'
       $gt_gitweb_spath   = './'
       $gt_gitweb_binary  = 'index.cgi'
+    }
+    default: {
+      fail("The git module is not configured for use with ${::operatingsystem}")
     }
   }
 }

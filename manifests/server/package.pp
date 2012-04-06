@@ -10,7 +10,7 @@
 #   This class installs git/gitweb server binaries via Packages.
 #
 # Requires:
-#   This module has no requirements.   
+#   This module has no requirements.
 #
 # Sample Usage:
 #   This method should not be called directly.

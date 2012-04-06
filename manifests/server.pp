@@ -4,17 +4,23 @@
 #
 # Parameters:
 #  $server: Whether to install gitolite in addition to git core tools.
-#  $site_name: (default: "fqdn Git Repository") The friendly name displayed on the GitWeb main page.
-#  $manage_apache: flag to determine whether git module also manages Apache configuration
-#  $write_apache_conf_to: (file path). This option is used when you want to contain apache
-#                         configuration within the git class, but do not want to use the
-#                         puppetlabs-apache module to manage apache. This option takes a file path
-#                         and will write the apache template to a specific file on the filesystem.
+#  $site_name: (default: "fqdn Git Repository") The friendly name displayed on
+#               the GitWeb main page.
+#  $manage_apache: flag to determine whether git module also manages Apache
+#                  configuration
+#  $write_apache_conf_to: (file path). This option is used when you want to
+#                         contain apache configuration within the git class,
+#                         but do not want to use the puppetlabs-apache module
+#                         to manage apache. This option takes a file path
+#                         and will write the apache template to a specific
+#                         file on the filesystem.
 #                         REQUIRES: $apache_notify
-#  $apache_notify: Reference notification to be used if the git module will manage apache, but the
-#                  puppetlabs-apache module is not going to be used. This takes a type reference 
-#                  (e.g.: Class['apache::service'] or Service['apache2']) to send a notification
-#                  to the reference to restart an external apache service.
+#  $apache_notify: Reference notification to be used if the git module will
+#                  manage apache, but the puppetlabs-apache module is not going
+#                  to be used. This takes a type reference (e.g.:
+#                  Class['apache::service'] or Service['apache2']) to send a
+#                  notification to the reference to restart an external apache
+#                  service.
 #  $vhost: the virtual host of the apache instance.
 #  $ssh_key: the SSH key used to seed the admin account for gitolite.
 #
@@ -25,10 +31,13 @@
 #   Java $version on the system
 #
 # Requires:
-#  - Class[stdlib]. This is Puppet Labs standard library to include additional methods for use within Puppet. [https://github.com/puppetlabs/puppetlabs-stdlib]
+#  - Class[stdlib]. This is Puppet Labs standard library to include additional
+#    methods for use within Puppet.
+#    [https://github.com/puppetlabs/puppetlabs-stdlib]
 #
 # Optional:
-#  - Class[puppetlabs-apache]. Apache management module provided by puppetlabs [https://github.com/puppetlabs/puppetlabs-apache]
+#  - Class[puppetlabs-apache]. Apache management module provided by puppetlabs
+#    [https://github.com/puppetlabs/puppetlabs-apache]
 #
 # Sample Usage:
 #
@@ -56,8 +65,8 @@
 #  }
 #
 class git::server(
-  $site_name            = '',
   $ssh_key,
+  $site_name            = '',
   $vhost                = '',
   $manage_apache        = '',
   $apache_notify        = '',
