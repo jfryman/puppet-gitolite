@@ -1,6 +1,6 @@
 # Class: git::client
 #
-# This module manages git client management 
+# This module manages git client management
 #
 # Parameters:
 #
