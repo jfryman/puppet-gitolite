@@ -1,4 +1,4 @@
-# Class: git
+# Class: gitolite
 #
 # Description
 #  This module is designed to configure and install git clients
@@ -10,16 +10,16 @@
 #  $server: Whether to install gitolite in addition to git core tools.
 #  $site_name: (default: "fqdn Git Repository") The friendly name displayed on
 #               the GitWeb main page.
-#  $manage_apache: flag to determine whether git module also manages Apache
+#  $manage_apache: flag to determine whether gitolite module also manages Apache
 #                  configuration
 #  $write_apache_conf_to: (file path). This option is used when you want to
-#                         contain apache configuration within the git class,
+#                         contain apache configuration within the gitolite class,
 #                         but do not want to use the puppetlabs-apache module
 #                         to manage apache. This option takes a file path
 #                         and will write the apache template to a specific file
 #                         on the filesystem.
 #                         REQUIRES: $apache_notify
-#  $apache_notify: Reference notification to be used if the git module will
+#  $apache_notify: Reference notification to be used if the gitolite module will
 #                  manage apache, but the puppetlabs-apache module is not
 #                  going to be used. This takes a type reference (e.g.:
 #                  Class['apache::service'] or Service['apache2']) to send a
@@ -46,7 +46,7 @@
 # Sample Usage:
 #
 #  Manage Apache:
-#   class { 'git':
+#   class { 'gitolite':
 #    server    => 'true',
 #    site_name => 'Frymanet.com Git Repository',
 #    ssh_key   => 'ssh-rsa AAAA....',
@@ -54,7 +54,7 @@
 #  }
 #
 #  Use and External Apache Module:
-#   class { 'git':
+#   class { 'gitolite':
 #    server               => 'true',
 #    site_name            => 'Frymanet.com Git Repository',
 #    ssh_key              => 'ssh-rsa AAAA....',
@@ -64,7 +64,7 @@
 #  }
 #
 #  Do not manage Apache:
-#   class { 'git':
+#   class { 'gitolite':
 #    server               => 'true',
 #    manage_apache        => 'false',
 #    site_name            => 'Frymanet.com Git Repository',
@@ -72,8 +72,8 @@
 #  }
 #
 #  Only install Git Client Binaries:
-#   class { 'git': }
-class git(
+#   class { 'gitolite': }
+class gitolite(
   $server               = false,
   $site_name            = '',
   $vhost                = '',
@@ -83,23 +83,23 @@ class git(
   $ssh_key              = ''
 ) {
   include stdlib
-  include git::params
+  include gitolite::params
 
-  anchor { 'git::begin': }
-  -> class  { 'git::client': }
-  -> anchor { 'git::end': }
+  anchor { 'gitolite::begin': }
+  -> class  { 'gitolite::client': }
+  -> anchor { 'gitolite::end': }
 
   if $server == true {
 
-    class { 'git::server':
+    class { 'gitolite::server':
       site_name            => $site_name,
       vhost                => $vhost,
       manage_apache        => $manage_apache,
       apache_notify        => $apache_notify,
       write_apache_conf_to => $write_apache_conf_to,
       ssh_key              => $ssh_key,
-      require              => Class['git::client'],
-      before               => Anchor['git::end'],
+      require              => Class['gitolite::client'],
+      before               => Anchor['gitolite::end'],
     }
   }
 }

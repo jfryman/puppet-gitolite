@@ -1,4 +1,4 @@
-# Class: git::server::config
+# Class: gitolite::server::config
 #
 # Description
 #  This class is designed to configure the system to use Gitolite and Gitweb
@@ -7,16 +7,16 @@
 #  $server: Whether to install gitolite in addition to git core tools.
 #  $site_name: (default: "fqdn Git Repository") The friendly name displayed on
 #              the GitWeb main page.
-#  $manage_apache: flag to determine whether git module also manages Apache
+#  $manage_apache: flag to determine whether gitolite module also manages Apache
 #                  configuration
 #  $write_apache_conf_to: (file path). This option is used when you want to
-#                         contain apache configuration within the git class,
-#                         but do not want to use the puppetlabs-apache module
-#                         to manage apache. This option takes a file path
-#                         and will write the apache template to a specific
+#                         contain apache configuration within the gitolite
+#                         class, but do not want to use the puppetlabs-apache
+#                         module to manage apache. This option takes a file
+#                         path and will write the apache template to a specific
 #                         file on the filesystem.
 #                         REQUIRES: $apache_notify
-#  $apache_notify: Reference notification to be used if the git module will
+#  $apache_notify: Reference notification to be used if the gitolite module will
 #                  manage apache, but the puppetlabs-apache module is not
 #                  going to be used. This takes a type reference (e.g.:
 #                  Class['apache::service'] or Service['apache2']) to send
@@ -33,7 +33,7 @@
 #
 # Sample Usage:
 #  This module should not be called directly.
-class git::server::config(
+class gitolite::server::config(
   $site_name,
   $ssh_key,
   $vhost,
@@ -42,58 +42,58 @@ class git::server::config(
   $write_apache_conf_to
 ) {
   File {
-    owner => $git::params::gt_uid,
-    group => $git::params::gt_gid,
+    owner => $gitolite::params::gt_uid,
+    group => $gitolite::params::gt_gid,
     mode  => '0644',
   }
   Exec {
     path => '/usr/bin:/usr/sbin:/bin:/sbin:/usr/local/bin:/usr/local/sbin',
   }
 
-  # Gitolite User Setup
-  user { $git::params::gt_uid:
+  # gitolite User Setup
+  user { $gitolite::params::gt_uid:
     ensure  => 'present',
-    home    => $git::params::gt_repo_base,
-    gid     => $git::params::gt_gid,
+    home    => $gitolite::params::gt_repo_base,
+    gid     => $gitolite::params::gt_gid,
     comment => 'git repository hosting',
   }
-  group { $git::params::gt_gid:
+  group { $gitolite::params::gt_gid:
     ensure  => 'present',
-    members => $git::params::gt_httpd_uid,
+    members => $gitolite::params::gt_httpd_uid,
   }
   # Git Filesystem Repository Setup
-  file { $git::params::gt_repo_base:
+  file { $gitolite::params::gt_repo_base:
     ensure => 'directory',
   }
-  file { $git::params::gt_repo_dir:
+  file { $gitolite::params::gt_repo_dir:
     ensure  => 'directory',
   }
-  file { "${git::params::gt_httpd_conf_dir}/git.conf":
+  file { "${gitolite::params::gt_httpd_conf_dir}/git.conf":
     ensure => 'absent',
   }
 
   # Gitweb Setup
   file { '/etc/gitweb.conf':
     ensure  => file,
-    content => template('git/gitweb.conf.erb'),
+    content => template('gitolite/gitweb.conf.erb'),
   }
   ## add pretty style sheets
-  file { "${git::params::gt_gitweb_root}${git::params::gt_gitweb_spath}":
+  file { "${gitolite::params::gt_gitweb_root}${gitolite::params::gt_gitweb_spath}":
     ensure => directory,
   }
   file {
-    "${git::params::gt_gitweb_root}${git::params::gt_gitweb_spath}gitweb.css":
+    "${gitolite::params::gt_gitweb_root}${gitolite::params::gt_gitweb_spath}gitweb.css":
     ensure  => file,
-    source  => 'puppet:///modules/git/gitweb.css',
+    source  => 'puppet:///modules/gitolite/gitweb.css',
     require =>
-      File["${git::params::gt_gitweb_root}${git::params::gt_gitweb_spath}"],
+      File["${gitolite::params::gt_gitweb_root}${gitolite::params::gt_gitweb_spath}"],
   }
   file {
-    "${git::params::gt_gitweb_root}${git::params::gt_gitweb_spath}gitweb.js":
+    "${gitolite::params::gt_gitweb_root}${gitolite::params::gt_gitweb_spath}gitweb.js":
     ensure  => file,
-    source  => 'puppet:///modules/git/gitweb.js',
+    source  => 'puppet:///modules/gitolite/gitweb.js',
     require =>
-      File["${git::params::gt_gitweb_root}${git::params::gt_gitweb_spath}"],
+      File["${gitolite::params::gt_gitweb_root}${gitolite::params::gt_gitweb_spath}"],
   }
 
   # Flag modifier to allow user to choose whether to use
@@ -112,10 +112,10 @@ class git::server::config(
       } else {
         file { $write_apache_conf_to:
           ensure  => file,
-          content => template('git/gitweb-apache-vhost.conf.erb'),
+          content => template('gitolite/gitweb-apache-vhost.conf.erb'),
           notify  => $apache_notify,
           require => [ File['/etc/gitweb.conf'],
-                        File["${git::params::gt_httpd_conf_dir}/git.conf"] ],
+                        File["${gitolite::params::gt_httpd_conf_dir}/git.conf"] ],
         }
       }
     }
@@ -123,41 +123,41 @@ class git::server::config(
       # By default, use the puppetlabs-apache module to manage Apache
       apache::vhost { $vhost:
         port     => '80',
-        docroot  => $git::params::gt_repo_dir,
+        docroot  => $gitolite::params::gt_repo_dir,
         ssl      => false,
-        template => 'git/gitweb-apache-vhost.conf.erb',
+        template => 'gitolite/gitweb-apache-vhost.conf.erb',
         priority => '99',
         require  => [ File['/etc/gitweb.conf'],
-                      File["${git::params::gt_httpd_conf_dir}/git.conf"] ],
+                      File["${gitolite::params::gt_httpd_conf_dir}/git.conf"] ],
       }
     }
   }
 
   # Gitolite Configuration
-  file { "${git::params::gt_repo_base}/.bash_history":
+  file { "${gitolite::params::gt_repo_base}/.bash_history":
     ensure => 'absent',
   }
   file { 'gitolite-key':
     ensure  => file,
-    path    => "${git::params::gt_repo_base}/gitolite.pub",
+    path    => "${gitolite::params::gt_repo_base}/gitolite.pub",
     content => $ssh_key,
   }
   exec { 'install-gitolite':
-    command     => "gl-setup ${git::params::gt_repo_base}/gitolite.pub",
-    creates     => "${git::params::gt_repo_base}/projects.list",
-    cwd         => $git::params::gt_repo_base,
-    user        => $git::params::gt_uid,
-    environment => "HOME=${git::params::gt_repo_base}",
+    command     => "gl-setup ${gitolite::params::gt_repo_base}/gitolite.pub",
+    creates     => "${gitolite::params::gt_repo_base}/projects.list",
+    cwd         => $gitolite::params::gt_repo_base,
+    user        => $gitolite::params::gt_uid,
+    environment => "HOME=${gitolite::params::gt_repo_base}",
     require     => File['gitolite-key'],
   }
-  file { "${git::params::gt_repo_base}/projects.list":
+  file { "${gitolite::params::gt_repo_base}/projects.list":
     ensure  => file,
     mode    => '0600',
     require => Exec['install-gitolite'],
   }
   file { 'gitolite-config':
-    path    => "${git::params::gt_repo_base}/.gitolite.rc",
-    content => template('git/gitolite.rc.erb'),
+    path    => "${gitolite::params::gt_repo_base}/.gitolite.rc",
+    content => template('gitolite/gitolite.rc.erb'),
     before  => Exec['install-gitolite'],
   }
 }

@@ -1,8 +1,8 @@
-# Class: git::params
+# Class: gitolite::params
 #
 # Description
 #   This class is designed to carry default parameters for
-#   Class: git.
+#   Class: gitolite.
 #
 # Parameters:
 #  $gt_uid: username under the context where gitolite will run
@@ -28,7 +28,7 @@
 #
 # Sample Usage:
 #   This method should not be called directly.
-class git::params {
+class gitolite::params {
   $gt_uid       = 'gitolite'
   $gt_gid       = 'gitolite'
   $gt_repo_base = '/opt/git'
