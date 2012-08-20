@@ -1,4 +1,4 @@
-# Class: git::client::package
+# Class: gitolite::client::package
 #
 # Description
 #  This class is designed to install Git client packages
@@ -14,8 +14,8 @@
 #
 # Sample Usage:
 #   This method should not be called directly.
-class git::client::package {
-  package { $git::params::gt_client_package:
+class gitolite::client::package {
+  package { $gitolite::params::gt_client_package:
     ensure => 'present',
   }
 }

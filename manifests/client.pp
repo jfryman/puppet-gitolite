@@ -1,4 +1,4 @@
-# Class: git::client
+# Class: gitolite::client
 #
 # This module manages git client management
 #
@@ -13,10 +13,10 @@
 # Sample Usage:
 #
 # This class file is not called directly.
-class git::client {
+class gitolite::client {
   include stdlib
 
-  anchor { 'git::client::begin': }
-  -> class { 'git::client::package': }
-  -> anchor { 'git::client::end': }
+  anchor { 'gitolite::client::begin': }
+  -> class { 'gitolite::client::package': }
+  -> anchor { 'gitolite::client::end': }
 }

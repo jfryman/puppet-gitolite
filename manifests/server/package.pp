@@ -1,4 +1,4 @@
-# Class: git::server::package
+# Class: gitolite::server::package
 #
 # Description
 #  This class is designed to install Git server packages
@@ -14,8 +14,8 @@
 #
 # Sample Usage:
 #   This method should not be called directly.
-class git::server::package {
-  package { $git::params::gt_server_package:
+class gitolite::server::package {
+  package { $gitolite::params::gt_server_package:
     ensure => 'present',
   }
 }
