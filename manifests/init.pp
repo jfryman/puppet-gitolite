@@ -28,6 +28,7 @@
 #  $vhost: the virtual host of the apache instance.
 #  $ssh_key: the SSH key used to seed the admin account for gitolite.
 #  $hooks: Array of repositories which have hooks in $gt_hooks_module
+#  $wildrepos: Whether to enable wildrepos or not.
 #
 #
 # Actions:
@@ -83,7 +84,8 @@ class gitolite(
   $apache_notify        = '',
   $write_apache_conf_to = '',
   $ssh_key              = '',
-  $hooks                = ''
+  $hooks                = '',
+  $wildrepos            = '0'
 ) {
   include stdlib
   include gitolite::params
@@ -101,6 +103,7 @@ class gitolite(
       apache_notify        => $apache_notify,
       write_apache_conf_to => $write_apache_conf_to,
       ssh_key              => $ssh_key,
+      wildrepos            => $wildrepos,
       require              => Class['gitolite::client'],
       before               => Anchor['gitolite::end'],
     }
