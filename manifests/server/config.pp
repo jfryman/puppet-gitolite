@@ -73,6 +73,11 @@ class gitolite::server::config(
   }
 
   # Gitweb Setup
+  # Template uses:
+  # - gitolite::params::gt_repo_dir
+  # - gitolite::params::gt_gitweb_spath
+  # - vhost
+  # - site_name
   file { '/etc/gitweb.conf':
     ensure  => file,
     content => template('gitolite/gitweb.conf.erb'),
@@ -105,6 +110,13 @@ class gitolite::server::config(
     # Based on code provided by justone. Ref:
     # https://github.com/jfryman/puppet-gitolite/pull/2
     # -JDF (12/1/2011)
+
+    # Template uses:
+    # - gitolite::params::gt_gitweb_root
+    # - gitolite::params::gt_gitweb_binary
+    # - gitolite::params::gt_repo_dir
+    # - gitolite::params::gt_httpd_conf_dir
+    # - vhost
     if $write_apache_conf_to != '' {
       if $apache_notify == '' {
         fail('Cannot properly manage Apache if a refresh reference is not ' +
@@ -155,6 +167,7 @@ class gitolite::server::config(
     mode    => '0600',
     require => Exec['install-gitolite'],
   }
+  # Template uses nothing
   file { 'gitolite-config':
     path    => "${gitolite::params::gt_repo_base}/.gitolite.rc",
     content => template('gitolite/gitolite.rc.erb'),
