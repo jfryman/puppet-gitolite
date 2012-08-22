@@ -27,6 +27,7 @@
 #                  service.
 #  $vhost: the virtual host of the apache instance.
 #  $ssh_key: the SSH key used to seed the admin account for gitolite.
+#  $hooks: Array of repositories which have hooks in $gt_hooks_module
 #
 #
 # Actions:
@@ -80,7 +81,8 @@ class gitolite(
   $manage_apache        = true,
   $apache_notify        = '',
   $write_apache_conf_to = '',
-  $ssh_key              = ''
+  $ssh_key              = '',
+  $hooks                = ''
 ) {
   include stdlib
   include gitolite::params
@@ -100,6 +102,11 @@ class gitolite(
       ssh_key              => $ssh_key,
       require              => Class['gitolite::client'],
       before               => Anchor['gitolite::end'],
+    }
+    if $hooks {
+      gitolite::hook { $hooks:
+        require => Class['gitolite::server'],
+      }
     }
   }
 }
