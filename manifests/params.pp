@@ -29,12 +29,13 @@
 # Sample Usage:
 #   This method should not be called directly.
 class gitolite::params {
-  $gt_uid       = 'gitolite'
-  $gt_gid       = 'gitolite'
-  $gt_repo_base = '/opt/git'
-  $gt_repo_dir  = "${gt_repo_base}/repositories"
-  $gt_vhost     = "git.${::domain}"
-  $gt_site_name = "${::fqdn} Git Repository"
+  $gt_uid          = 'gitolite'
+  $gt_gid          = 'gitolite'
+  $gt_repo_base    = '/opt/git'
+  $gt_repo_dir     = "${gt_repo_base}/repositories"
+  $gt_vhost        = "git.${::domain}"
+  $gt_site_name    = "${::fqdn} Git Repository"
+  $gt_hooks_module = 'gitolite_hooks'
 
   case $::operatingsystem {
     fedora,redhat,oel,centos: {
