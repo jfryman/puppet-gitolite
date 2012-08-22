@@ -167,7 +167,7 @@ class gitolite::server::config(
     mode    => '0600',
     require => Exec['install-gitolite'],
   }
-  # Template uses nothing
+  # Template uses $wildrepos
   file { 'gitolite-config':
     path    => "${gitolite::params::gt_repo_base}/.gitolite.rc",
     content => template('gitolite/gitolite.rc.erb'),
