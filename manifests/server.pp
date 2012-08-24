@@ -71,7 +71,7 @@ class gitolite::server(
   $manage_apache        = '',
   $apache_notify        = '',
   $write_apache_conf_to = '',
-  $wildrepos            = '0'
+  $wildrepos            = false
 ) {
   include stdlib
 

@@ -85,7 +85,7 @@ class gitolite(
   $write_apache_conf_to = '',
   $ssh_key              = '',
   $hooks                = '',
-  $wildrepos            = '0'
+  $wildrepos            = false
 ) {
   include stdlib
   include gitolite::params
