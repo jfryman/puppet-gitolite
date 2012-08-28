@@ -70,7 +70,8 @@ class gitolite::server(
   $vhost                = '',
   $manage_apache        = '',
   $apache_notify        = '',
-  $write_apache_conf_to = ''
+  $write_apache_conf_to = '',
+  $wildrepos            = false
 ) {
   include stdlib
 
@@ -89,6 +90,7 @@ class gitolite::server(
     manage_apache        => $manage_apache,
     apache_notify        => $apache_notify,
     write_apache_conf_to => $write_apache_conf_to,
+    wildrepos            => $wildrepos,
   }
   -> anchor { 'gitolite::server::end': }
 }

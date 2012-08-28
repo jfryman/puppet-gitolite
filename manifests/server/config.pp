@@ -39,7 +39,8 @@ class gitolite::server::config(
   $vhost,
   $manage_apache,
   $apache_notify,
-  $write_apache_conf_to
+  $write_apache_conf_to,
+  $wildrepos
 ) {
   File {
     owner => $gitolite::params::gt_uid,
