@@ -59,7 +59,7 @@
 #
 #  Do not manage Apache:
 #   class { 'gitolite::server':
-#    manage_apache        => 'false',
+#    manage_apache        => false,
 #    site_name            => 'Frymanet.com Git Repository',
 #    ssh_key              => 'ssh-rsa AAAA....',
 #  }
@@ -68,7 +68,7 @@ class gitolite::server(
   $ssh_key,
   $site_name            = '',
   $vhost                = '',
-  $manage_apache        = '',
+  $manage_apache        = false,
   $apache_notify        = '',
   $write_apache_conf_to = '',
   $wildrepos            = false

@@ -49,7 +49,7 @@
 #
 #  Manage Apache:
 #   class { 'gitolite':
-#    server        => 'true',
+#    server        => true,
 #    site_name     => 'Frymanet.com Git Repository',
 #    ssh_key       => 'ssh-rsa AAAA....',
 #    vhost         => 'git.frymanet.com',
@@ -58,7 +58,7 @@
 #
 #  Use and External Apache Module:
 #   class { 'gitolite':
-#    server               => 'true',
+#    server               => true,
 #    site_name            => 'Frymanet.com Git Repository',
 #    ssh_key              => 'ssh-rsa AAAA....',
 #    vhost                => 'git.frymanet.com',
@@ -69,7 +69,7 @@
 #
 #  Do not manage Apache:
 #   class { 'gitolite':
-#    server               => 'true',
+#    server               => true,
 #    site_name            => 'Frymanet.com Git Repository',
 #    ssh_key              => 'ssh-rsa AAAA....',
 #  }
@@ -89,6 +89,7 @@ class gitolite(
 ) {
   include stdlib
   include gitolite::params
+  validate_bool($server)
 
   anchor { 'gitolite::begin': }
   -> class  { 'gitolite::client': }
