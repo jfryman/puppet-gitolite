@@ -18,7 +18,7 @@ _Apache Module_
 *Setup the initial Gitolite Admin keys and bootstrap* 
 <pre>
    class { 'gitolite':
-    server    => 'true',
+    server    => true,
     site_name => 'Frymanet.com Git Repository',
     ssh_key   => 'ssh-rsa AAAA....',
     vhost     => 'git.frymanet.com',
@@ -28,7 +28,7 @@ _Apache Module_
 *Setup the initial Gitolite Admin keys and bootstrap using an external apache module* 
 <pre>
    class { 'gitolite':
-    server               => 'true',
+    server               => true,
     site_name            => 'Frymanet.com Git Repository',
     ssh_key              => 'ssh-rsa AAAA....',
     vhost                => 'git.frymanet.com',
@@ -40,8 +40,8 @@ _Apache Module_
 *Setup the initial Gitolite Admin keys and bootstrap, but don't manage apache*
 <pre> 
    class { 'gitolite':
-    server               => 'true',
-    manage_apache        => 'false',
+    server               => true,
+    manage_apache        => false,
     site_name            => 'Frymanet.com Git Repository',
     ssh_key              => 'ssh-rsa AAAA....',
   }
