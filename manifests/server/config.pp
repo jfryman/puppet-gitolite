@@ -42,6 +42,9 @@ class gitolite::server::config(
   $write_apache_conf_to,
   $wildrepos
 ) {
+  validate_bool($wildrepos)
+  validate_bool($manage_apache)
+
   File {
     owner => $gitolite::params::gt_uid,
     group => $gitolite::params::gt_gid,
