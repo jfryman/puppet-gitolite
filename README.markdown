@@ -9,11 +9,13 @@ This module manages Gitolite from within Puppet.
 Install and bootstrap a Gitolite Server instance. Includes 
 Gitolite and GitWeb as a viewer
 
-# Requirements
-_Puppet Labs Standard Library_
-- http://github.com/puppetlabs/puppetlabs-stdlib
-_Apache Module_
-- http://github.com/puppetlabs/puppetlabs-apache
+## Requirements
+
+_Puppet Labs Standard Library_: http://github.com/puppetlabs/puppetlabs-stdlib
+
+_Apache Module_: http://github.com/puppetlabs/puppetlabs-apache
+
+## Usage
 
 *Setup the initial Gitolite Admin keys and bootstrap* 
 <pre>
