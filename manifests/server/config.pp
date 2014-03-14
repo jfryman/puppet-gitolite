@@ -165,7 +165,7 @@ class gitolite::server::config(
   }
   file { "${gitolite::params::gt_repo_base}/projects.list":
     ensure  => file,
-    mode    => '0600',
+    mode    => '0640',
     require => Exec['install-gitolite'],
   }
   # Template uses $wildrepos

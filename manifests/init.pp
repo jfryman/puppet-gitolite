@@ -80,6 +80,7 @@ class gitolite(
   $server               = false,
   $site_name            = '',
   $vhost                = '',
+  $uri                  = "http://$vhost",
   $manage_apache        = false,
   $apache_notify        = '',
   $write_apache_conf_to = '',
@@ -99,6 +100,7 @@ class gitolite(
     class { 'gitolite::server':
       site_name            => $site_name,
       vhost                => $vhost,
+      uri                  => $uri,
       manage_apache        => $manage_apache,
       apache_notify        => $apache_notify,
       write_apache_conf_to => $write_apache_conf_to,

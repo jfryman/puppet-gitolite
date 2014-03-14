@@ -1,14 +1,15 @@
 $GIT = "/usr/bin/git";
 $projectroot = "<%= scope.lookupvar('gitolite::params::gt_repo_dir') %>";
+$projects_list = "<%= scope.lookupvar('gitolite::params::gt_repo_base') %>/projects.list";
 $stylesheet = "<%= scope.lookupvar('gitolite::params::gt_gitweb_spath') %>gitweb.css";
 $logo = "<%= scope.lookupvar('gitolite::params::gt_gitweb_spath') %>git-logo.png";
 $favicon = "<%= scope.lookupvar('gitolite::params::gt_gitweb_spath') %>git-favicon.png";
-@git_base_url_list = ("ssh://git@<%= vhost %>", "http://<%= vhost %>");
+@git_base_url_list = ("ssh://<%= scope.lookupvar('gitolite::params::gt_uid') %>\@<%= @vhost %>", "http://<%= @vhost %>");
 $projects_list_description_width = 50;
 
-$my_uri = "http://<%= vhost %>";
-$home_link = "http://<%= vhost %>";
-$site_name = "<%= site_name %>";
+$my_uri = "<%= @uri %>";
+$home_link = "<%= @uri %>";
+$site_name = "<%= @site_name %>";
 
 $prevent_xss = true;
 $feature{'pathinfo'}{'default'} = [1];
