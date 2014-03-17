@@ -29,8 +29,8 @@
 # Sample Usage:
 #   This method should not be called directly.
 class gitolite::params {
-  $gt_uid          = 'gitolite'
-  $gt_gid          = 'gitolite'
+  $gt_uid          = 'gitolite3'
+  $gt_gid          = 'gitolite3'
   $gt_repo_base    = '/opt/git'
   $gt_repo_dir     = "${gt_repo_base}/repositories"
   $gt_vhost        = "git.${::domain}"
@@ -40,7 +40,7 @@ class gitolite::params {
   case $::operatingsystem {
     fedora,redhat,oel,centos: {
       $gt_client_package = ['perl-Error', 'perl-Git', 'git']
-      $gt_server_package = [ 'gitweb', 'gitolite' ]
+      $gt_server_package = [ 'gitweb', 'gitolite3' ]
       $gt_httpd_conf_dir = '/etc/httpd/conf.d'
       $gt_httpd_var_dir  = '/var/log/httpd'
       $gt_httpd_uid      = 'apache'

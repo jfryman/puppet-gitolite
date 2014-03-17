@@ -156,7 +156,7 @@ class gitolite::server::config(
     content => $ssh_key,
   }
   exec { 'install-gitolite':
-    command     => "gl-setup ${gitolite::params::gt_repo_base}/gitolite.pub",
+    command     => "gitolite setup -pk ${gitolite::params::gt_repo_base}/gitolite.pub",
     creates     => "${gitolite::params::gt_repo_base}/projects.list",
     cwd         => $gitolite::params::gt_repo_base,
     user        => $gitolite::params::gt_uid,
@@ -165,7 +165,7 @@ class gitolite::server::config(
   }
   file { "${gitolite::params::gt_repo_base}/projects.list":
     ensure  => file,
-    mode    => '0600',
+    mode    => '0640',
     require => Exec['install-gitolite'],
   }
   # Template uses $wildrepos

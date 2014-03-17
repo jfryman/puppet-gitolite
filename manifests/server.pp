@@ -68,6 +68,7 @@ class gitolite::server(
   $ssh_key,
   $site_name            = '',
   $vhost                = '',
+  $uri                  = '',
   $manage_apache        = '',
   $apache_notify        = '',
   $write_apache_conf_to = '',

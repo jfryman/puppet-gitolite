@@ -4,7 +4,7 @@
 # ************************************
 
 <VirtualHost *:80>
-    ServerName <%= vhost %>
+    ServerName <%= @vhost %>
     DocumentRoot "<%= scope.lookupvar('gitolite::params::gt_gitweb_root') %>"
     DirectoryIndex <%= scope.lookupvar('gitolite::params::gt_gitweb_binary') %>
     SetEnv  GITWEB_CONFIG   /etc/gitweb.conf
@@ -31,6 +31,6 @@
 
     LogLevel warn
     ServerSignature Off
-    ErrorLog <%= scope.lookupvar('gitolite::params::gt_httpd_var_dir') %>/<%= vhost %>_error.log
-    CustomLog <%= scope.lookupvar('gitolite::params::gt_httpd_var_dir') %>/<%= vhost %>_access.log combined
+    ErrorLog <%= scope.lookupvar('gitolite::params::gt_httpd_var_dir') %>/<%= @vhost %>_error.log
+    CustomLog <%= scope.lookupvar('gitolite::params::gt_httpd_var_dir') %>/<%= @vhost %>_access.log combined
 </VirtualHost>
