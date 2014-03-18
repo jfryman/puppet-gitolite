@@ -51,7 +51,7 @@ class gitolite::params {
     }
     debian,ubuntu: {
       $gt_client_package = ['git']
-      $gt_server_package = [ 'gitweb', 'gitolite' ]
+      $gt_server_package = [ 'gitweb', 'gitolite3' ]
       $gt_httpd_conf_dir = '/etc/apache2/conf.d'
       $gt_httpd_var_dir  = '/var/log/apache2'
       $gt_httpd_uid      = 'www-data'
