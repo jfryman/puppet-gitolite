@@ -5,7 +5,8 @@
     ROLES => {
         READERS                     =>  1,
         WRITERS                     =>  1,
-    },
+    },<% if @grouplist_pgm %>
+    GROUPLIST_PGM                   => '<%= @grouplist_pgm %>',<% end %>
     ENABLE => [
 
             'help',

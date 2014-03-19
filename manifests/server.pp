@@ -23,6 +23,8 @@
 #                  service.
 #  $vhost: the virtual host of the apache instance.
 #  $ssh_key: the SSH key used to seed the admin account for gitolite.
+#  $grouplist_pgm: An external program called to determine user groups
+#                  (see http://gitolite.com/gitolite/auth.html#ldap)
 #
 #
 # Actions:
@@ -72,7 +74,8 @@ class gitolite::server(
   $manage_apache        = '',
   $apache_notify        = '',
   $write_apache_conf_to = '',
-  $wildrepos            = false
+  $wildrepos            = false,
+  $grouplist_pgm        = undef
 ) {
   include stdlib
 
@@ -92,6 +95,7 @@ class gitolite::server(
     apache_notify        => $apache_notify,
     write_apache_conf_to => $write_apache_conf_to,
     wildrepos            => $wildrepos,
+    grouplist_pgm        => $grouplist_pgm,
   }
   -> anchor { 'gitolite::server::end': }
 }

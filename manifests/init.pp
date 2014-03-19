@@ -29,6 +29,8 @@
 #  $ssh_key: the SSH key used to seed the admin account for gitolite.
 #  $hooks: Array of repositories which have hooks in $gt_hooks_module
 #  $wildrepos: Whether to enable wildrepos or not.
+#  $grouplist_pgm: An external program called to determine user groups
+#                  (see http://gitolite.com/gitolite/auth.html#ldap)
 #
 #
 # Actions:
@@ -86,7 +88,8 @@ class gitolite(
   $write_apache_conf_to = '',
   $ssh_key              = '',
   $hooks                = '',
-  $wildrepos            = false
+  $wildrepos            = false,
+  $grouplist_pgm        = undef
 ) {
   include stdlib
   include gitolite::params
@@ -106,6 +109,7 @@ class gitolite(
       write_apache_conf_to => $write_apache_conf_to,
       ssh_key              => $ssh_key,
       wildrepos            => $wildrepos,
+      grouplist_pgm        => $grouplist_pgm,
       require              => Class['gitolite::client'],
       before               => Anchor['gitolite::end'],
     }

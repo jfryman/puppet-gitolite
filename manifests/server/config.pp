@@ -24,6 +24,8 @@
 #                  apache service.
 #  $vhost: the virtual host of the apache instance.
 #  $ssh_key: the SSH key used to seed the admin account for gitolite.
+#  $grouplist_pgm: An external program called to determine user groups
+#                  (see http://gitolite.com/gitolite/auth.html#ldap)
 #
 # Actions:
 #  Configures gitolite/gitweb
@@ -40,7 +42,8 @@ class gitolite::server::config(
   $manage_apache,
   $apache_notify,
   $write_apache_conf_to,
-  $wildrepos
+  $wildrepos,
+  $grouplist_pgm
 ) {
   File {
     owner => $gitolite::params::gt_uid,
