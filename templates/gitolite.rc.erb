@@ -5,7 +5,9 @@
     ROLES => {
         READERS                     =>  1,
         WRITERS                     =>  1,
-    },
+    },<% if @grouplist_pgm %>
+    GROUPLIST_PGM                   => '<%= @grouplist_pgm %>',<% end %><% if @grouplist_pgm %>
+    LOCAL_CODE                      => '<%= @local_code %>',<% end %>
     ENABLE => [
 
             'help',
@@ -17,7 +19,8 @@
             'git-config',
             'daemon',
             'gitweb',
-            <%= @wildrepos ? '' : '\'no-create-on-read\',' %>
-            <%= @wildrepos ? '' : '\'no-auto-create\',' %>
+            <%= @repo_specific_hooks ? '' : '#' %>'repo-specific-hooks',
+            <%= @wildrepos ? '#' : '' %>'no-create-on-read',
+            <%= @wildrepos ? '#' : '' %>'no-auto-create',
     ],
 );
