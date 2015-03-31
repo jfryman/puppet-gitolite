@@ -1,0 +1,16 @@
+{
+  "name": "jfryman-gitolite",
+  "version": "0.1.0",
+  "author": "James Fryman",
+  "summary": "Install and bootstrap a Gitolite Server instance. Includes Gitolite and GitWeb as a viewer.",
+  "license": "Apache-2.0",
+  "source": "https://github.com/gerhardsam/puppet-gitolite",
+  "project_page": "https://github.com/gerhardsam/puppet-gitolite",
+  "issues_url": "https://github.com/jfryman/puppet-gitolite/issues",
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 1.0.0"
+    }
+  ]
+}
