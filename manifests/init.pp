@@ -34,6 +34,9 @@
 #  $repo_specific_hooks: enable repo-specific hooks in gitolite configuration
 #  $local_code: path to a directory to add or override gitolite programs
 #               (see http://gitolite.com/gitolite/cust.html#localcode)
+#  $git_config_keys: Config keys to allow in gitolite.conf. Set to '.*' to allow
+#                    all keys. Needed for gitolite local hooks (see
+#                    http://gitolite.com/gitolite/gitolite.html#rc)
 #
 #
 # Actions:
@@ -94,7 +97,8 @@ class gitolite(
   $wildrepos            = false,
   $grouplist_pgm        = undef,
   $repo_specific_hooks  = false,
-  $local_code           = undef
+  $local_code           = undef,
+  $git_config_keys      = '',
 ) {
   include stdlib
   include gitolite::params

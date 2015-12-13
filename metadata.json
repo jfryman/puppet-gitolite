@@ -1,6 +1,6 @@
 {
   "name": "jfryman-gitolite",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": "James Fryman",
   "summary": "Install and bootstrap a Gitolite Server instance. Includes Gitolite and GitWeb as a viewer.",
   "license": "Apache-2.0",
