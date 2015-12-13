@@ -1,13 +1,13 @@
 %RC = (
     UMASK                           =>  0027,
-    GIT_CONFIG_KEYS                 =>  '',
+    GIT_CONFIG_KEYS                 =>  '<%= @git_config_keys %>',
     LOG_EXTRA                       =>  1,
     ROLES => {
         READERS                     =>  1,
         WRITERS                     =>  1,
     },<% if @grouplist_pgm %>
     GROUPLIST_PGM                   => '<%= @grouplist_pgm %>',<% end %><% if @local_code %>
-    LOCAL_CODE                      => '<%= @local_code %>',<% end %>
+    LOCAL_CODE                      => "<%= @local_code %>",<% end %>
     ENABLE => [
 
             'help',
